@@ -150,7 +150,7 @@ fun ProfileNamePreview() {
         ProfileName(
             image = R.drawable.perry,
             name = "Perry, o ornitorrinco",
-            time = "2 horas atrás"
+            time = "4 horas atrás"
         )
     }
 }
