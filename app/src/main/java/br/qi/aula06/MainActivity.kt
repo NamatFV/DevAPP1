@@ -1,6 +1,7 @@
 package br.qi.aula06
 
 import android.os.Bundle
+import android.security.identity.AccessControlProfile
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.DrawableRes
@@ -11,11 +12,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -23,6 +26,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -93,7 +100,9 @@ fun Post(
     @DrawableRes image: Int,
     modifier: Modifier = Modifier
 ){
-    Box {
+    Box (
+        modifier = modifier.height(200.dp)
+    ){
         Image(
             painter = painterResource(id = image),
             contentDescription = "Imagem do post",
@@ -104,16 +113,18 @@ fun Post(
 
 @Composable
 fun PostIcons(
-    like : Boolean,
+    like: Boolean,
+    onChange: () -> Unit,
     modifier: Modifier = Modifier
 ){
     Row {
         IconButton(
-            onClick = { /*TODO*/ }
+            onClick = onChange
         ) {
             Icon(
-                imageVector = Icons.Filled.FavoriteBorder,
-                contentDescription = "Ícone de curtida"
+                imageVector = if(like) Icons.Filled.FavoriteBorder else Icons.Filled.Favorite,
+                contentDescription = "Ícone de curtida",
+                tint = if(like) Color.Black else Color.Red
             )
         }
 
@@ -128,6 +139,21 @@ fun PostIcons(
     }
 }
 
+// Componente para controle de estado
+@Composable
+fun PostIconsState(
+    modifier: Modifier = Modifier
+){
+    var changeLike by remember {
+        mutableStateOf(true)
+    }
+
+    PostIcons(
+        like = changeLike,
+        onChange = {changeLike = !changeLike}
+    )
+}
+
 @Composable
 fun PostText(
     text : String,
@@ -139,6 +165,30 @@ fun PostText(
             maxLines = 2,
             overflow = TextOverflow.Ellipsis
         )
+    }
+}
+
+@Composable
+fun PostPage(
+    @DrawableRes imageProfile: Int,
+    nameProfile: String,
+    timeProfile: String,
+    @DrawableRes imagePost: Int,
+    textPost: String,
+    modifier: Modifier = Modifier
+){
+    Column {
+        ProfileName(
+            image = imageProfile,
+            name = nameProfile,
+            time = timeProfile
+        )
+        
+        Post(image = imagePost)
+        
+        PostIconsState()
+        
+        PostText(text = textPost)
     }
 }
 
@@ -167,7 +217,7 @@ fun PostPreview(){
 @Composable
 fun PostIconsPreview(){
     Aula06Theme {
-        PostIcons(like = true)
+        PostIconsState()
     }
 }
 
@@ -175,6 +225,20 @@ fun PostIconsPreview(){
 @Composable
 fun PostTextPreview(){
     Aula06Theme {
-        PostText(text = "Segue um versinho maroto -> Atirei um limão na água, de pesado foi ao fundo, os peixinhos responderam: viva à Dom Pedro II! #poetadaqi #informatica")
+        PostText(text = "São três meses de férias, que passam depressa, curtir é a prioridade. Temos que aproveitar bem, então vamos nessa, mas tem que rolar novidade...")
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PostPagePreview(){
+    Aula06Theme {
+        PostPage(
+            imageProfile = R.drawable.perry,
+            nameProfile = "Perry, o ornitorrinco",
+            timeProfile = "30 minutos atrás",
+            imagePost = R.drawable.ic_launcher_background,
+            textPost = "Não seja pau para toda obra, porque sempre terá obra"
+        )
     }
 }
