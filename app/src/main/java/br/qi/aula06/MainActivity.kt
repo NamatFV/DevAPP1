@@ -101,7 +101,7 @@ fun Post(
     modifier: Modifier = Modifier
 ){
     Box (
-        modifier = modifier.height(200.dp)
+        modifier = modifier.height(260.dp)
     ){
         Image(
             painter = painterResource(id = image),
@@ -122,9 +122,9 @@ fun PostIcons(
             onClick = onChange
         ) {
             Icon(
-                imageVector = if(like) Icons.Filled.FavoriteBorder else Icons.Filled.Favorite,
+                imageVector = if(like) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
                 contentDescription = "Ícone de curtida",
-                tint = if(like) Color.Black else Color.Red
+                tint = if(like) Color.Red else Color.Black
             )
         }
 
@@ -139,18 +139,18 @@ fun PostIcons(
     }
 }
 
-// Componente para controle de estado
+//Componente para controle de estado do like
 @Composable
 fun PostIconsState(
     modifier: Modifier = Modifier
 ){
     var changeLike by remember {
-        mutableStateOf(true)
+        mutableStateOf(false)
     }
 
     PostIcons(
         like = changeLike,
-        onChange = {changeLike = !changeLike}
+        onChange = { changeLike = !changeLike }
     )
 }
 
@@ -168,26 +168,27 @@ fun PostText(
     }
 }
 
+
 @Composable
-fun PostPage(
+fun PostPage (
     @DrawableRes imageProfile: Int,
     nameProfile: String,
     timeProfile: String,
     @DrawableRes imagePost: Int,
     textPost: String,
     modifier: Modifier = Modifier
-){
+) {
     Column {
         ProfileName(
             image = imageProfile,
             name = nameProfile,
             time = timeProfile
         )
-        
+
         Post(image = imagePost)
-        
+
         PostIconsState()
-        
+
         PostText(text = textPost)
     }
 }
@@ -223,22 +224,15 @@ fun PostIconsPreview(){
 
 @Preview(showBackground = true)
 @Composable
-fun PostTextPreview(){
-    Aula06Theme {
-        PostText(text = "São três meses de férias, que passam depressa, curtir é a prioridade. Temos que aproveitar bem, então vamos nessa, mas tem que rolar novidade...")
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
 fun PostPagePreview(){
     Aula06Theme {
-        PostPage(
-            imageProfile = R.drawable.perry,
-            nameProfile = "Perry, o ornitorrinco",
-            timeProfile = "30 minutos atrás",
-            imagePost = R.drawable.ic_launcher_background,
-            textPost = "Não seja pau para toda obra, porque sempre terá obra"
-        )
+
+    PostPage(imageProfile = R.drawable.perry,
+        nameProfile = "Perry",
+        timeProfile = "2 minutos atrás",
+        imagePost =R.drawable.perry,
+        textPost = "Ouviram do Ipiranga as margens plácidas, de um povo heróico o brado retumbante"
+    )
+
     }
 }
