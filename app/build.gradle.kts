@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "br.qi.aula06"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "br.qi.aula06"
-        minSdk = 28
-        targetSdk = 34
+        minSdk = 29
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
