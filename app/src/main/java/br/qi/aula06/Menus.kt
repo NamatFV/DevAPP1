@@ -15,6 +15,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,10 +27,13 @@ import br.qi.aula06.ui.theme.Aula06Theme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyTopBar(
-    title: String = "Título",
-    modifier: Modifier = Modifier
+    title: String = "Disney Channel",
+    modifier: Modifier = Modifier,
 ) {
     TopAppBar(
+        colors = TopAppBarDefaults.smallTopAppBarColors(
+            containerColor = Color(72, 133, 240)
+        ),
         title = {
             Text( text = title )
         },
@@ -47,9 +51,9 @@ fun MyTopBar(
 }
 
 @Composable
-fun MyBottomaAppBar(
+fun MyBottomBar(
     color: Color = Color.Black,
-    colorSelected: Color = Color.DarkGray,
+    colorSelected: Color = Color(186, 162, 232),
     size: Dp = 26.dp,
     sizeSelected: Dp = 40.dp,
     modifier: Modifier = Modifier
@@ -59,7 +63,9 @@ fun MyBottomaAppBar(
         mutableStateOf(0)
     }
 
-    BottomAppBar {
+    BottomAppBar (
+        containerColor = Color(72, 133, 240)
+    ){
         Row(
             horizontalArrangement = Arrangement.SpaceAround,
             modifier = modifier.fillMaxWidth()
@@ -113,7 +119,7 @@ fun MyTopBarPreview(){
 @Composable
 fun MyBottomBarPreview(){
     Aula06Theme {
-        MyBottomaAppBar()
+        MyBottomBar()
     }
 }
 

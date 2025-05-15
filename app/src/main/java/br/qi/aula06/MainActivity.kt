@@ -1,17 +1,18 @@
 package br.qi.aula06
 
 import android.os.Bundle
-import android.security.identity.AccessControlProfile
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -22,8 +23,6 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -156,18 +155,22 @@ fun PostIconsState(
 
 @Composable
 fun PostText(
-    text : String,
+    text: String,
     modifier: Modifier = Modifier
-){
-    Box{
+) {
+    var isExpanded by remember { mutableStateOf(false) }
+
+    Box(modifier = modifier) {
         Text(
-            text = text,
-            maxLines = 2,
-            overflow = TextOverflow.Ellipsis
+            text = if (isExpanded) text else text.take(100) + "...", // Mostra uma versão truncada quando não expandido
+            maxLines = if (isExpanded) Int.MAX_VALUE else 1, // Controla a quantidade de linhas visíveis
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier
+                .clickable { isExpanded = !isExpanded } // Alterna o estado de expandido ao clicar
+                .fillMaxWidth() // Garante que o clique será detectado em toda a largura do texto
         )
     }
 }
-
 
 @Composable
 fun PostPage (
