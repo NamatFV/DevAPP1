@@ -93,7 +93,7 @@ fun MyTextField(
                 hidePass = false
             }
         },
-        visualTransformation = if(hidePass) PasswordVisualTransformation('?') else VisualTransformation.None
+        visualTransformation = if(hidePass) PasswordVisualTransformation('*') else VisualTransformation.None
     )//TextField
 
 }
