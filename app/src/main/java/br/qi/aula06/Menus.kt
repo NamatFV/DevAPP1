@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import br.qi.aula06.ui.theme.Aula06Theme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -52,6 +53,8 @@ fun MyTopBar(
 
 @Composable
 fun MyBottomBar(
+    navController: NavController,
+    item: Int = -1,
     color: Color = Color.Black,
     colorSelected: Color = Color(186, 162, 232),
     size: Dp = 26.dp,
@@ -60,7 +63,7 @@ fun MyBottomBar(
 ){
 
     var itemSelected by remember {
-        mutableStateOf(0)
+        mutableIntStateOf(item)
     }
 
     BottomAppBar (
@@ -71,7 +74,10 @@ fun MyBottomBar(
             modifier = modifier.fillMaxWidth()
         ) {
             IconButton(
-                onClick = { itemSelected = 0 }
+                onClick = {
+                    itemSelected = item
+                    navController.navigate(Rotas.Profile)
+                }
             ) {
                 Icon(
                     imageVector = Icons.Outlined.AccountCircle,
@@ -82,7 +88,10 @@ fun MyBottomBar(
             }//IconButton
 
             IconButton(
-                onClick = { itemSelected = 1 }
+                onClick = {
+                    itemSelected = item
+                    navController.navigate(Rotas.AddPost)
+                }
             ) {
                 Icon(
                     imageVector = Icons.Outlined.AddCircle,
@@ -93,7 +102,10 @@ fun MyBottomBar(
             }//IconButton
 
             IconButton(
-                onClick = { itemSelected = 2 }
+                onClick = {
+                    itemSelected = item
+                    navController.navigate(Rotas.Settings)
+                }
             ) {
                 Icon(
                     imageVector = Icons.Outlined.Settings,
@@ -119,7 +131,7 @@ fun MyTopBarPreview(){
 @Composable
 fun MyBottomBarPreview(){
     Aula06Theme {
-        MyBottomBar()
+        //MyBottomBar()
     }
 }
 

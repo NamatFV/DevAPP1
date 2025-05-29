@@ -8,25 +8,36 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import br.qi.aula06.MyBottomBar
 import br.qi.aula06.MyTopBar
+import br.qi.aula06.ui.theme.Aula06Theme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddPostScreen(
+fun SettingsScreen(
     navController: NavController,
     modifier: Modifier = Modifier
 ){
     Scaffold (
         containerColor = Color(186, 162, 232),
-        topBar = { MyTopBar(title = "Novo Post")},
-        bottomBar = { MyBottomBar(navController = navController, item = 1)}
+        topBar = { MyTopBar(title = "Configurações")},
+        bottomBar = { MyBottomBar(navController = navController, item = 2)}
     ){
         Box(
             modifier = modifier.padding(it)
         ){
-            Text(text = "Tela de Novo Post")
+            Text(text = "Tela de Configurações")
         }
+    }
+}
+
+/////////////////////////////////////////////////////////////
+@Preview(showBackground = true)
+@Composable
+fun SettingsScreenPreview(){
+    Aula06Theme {
+        //SettingsScreen()
     }
 }

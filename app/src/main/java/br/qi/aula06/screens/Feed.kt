@@ -23,8 +23,8 @@ fun FeedScreen(
 ){
     Scaffold (
         containerColor = Color(186, 162, 232),
-        topBar = { MyTopBar()},
-        bottomBar = { MyBottomBar()}
+        topBar = { MyTopBar(title = "Feed")},
+        bottomBar = { MyBottomBar(navController = navController)}
     ){
         Box(
             modifier = modifier.padding(it)

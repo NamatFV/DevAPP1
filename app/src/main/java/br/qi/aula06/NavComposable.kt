@@ -5,10 +5,12 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import br.qi.aula06.screens.AddPostScreen
 import br.qi.aula06.screens.FeedScreen
 import br.qi.aula06.screens.LoginScreen
 import br.qi.aula06.screens.ProfileScreen
 import br.qi.aula06.screens.RegisterScreen
+import br.qi.aula06.screens.SettingsScreen
 
 @Composable
 fun MyNav(
@@ -32,10 +34,13 @@ fun MyNav(
             }
             composable(Rotas.Profile) {
                 ProfileScreen(navController = navController)
-            }/*
+            }
             composable(Rotas.AddPost) {
                 AddPostScreen(navController = navController)
-            }*/
+            }
+            composable(Rotas.Settings) {
+                SettingsScreen(navController = navController)
+            }
         }
     )
 }
